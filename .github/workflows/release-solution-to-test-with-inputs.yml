@@ -1,4 +1,4 @@
-name: Deploy Umanaged Application
+name: Deploy Solution with Inputs using solution pack/import
 run-name: Packing ${{ github.event.inputs.solution_name }} for ${{ github.event.inputs.environment_url }} environment
 on:
   workflow_dispatch:
@@ -51,7 +51,7 @@ jobs:
           solution-file: out/exported/${{ github.event.inputs.solution_name }}_unmanaged.zip
           solution-type: Unmanaged
     
-      - name: Import solution as unmanaged to build env
+      - name: Import solution as unmanaged to Test env
         uses: microsoft/powerplatform-actions/import-solution@v0
         with:
           environment-url: ${{github.event.inputs.environment_url}}
