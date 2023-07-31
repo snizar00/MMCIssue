@@ -42,16 +42,16 @@ jobs:
           RUNNER_DEBUG: 1
       
        
-      - name: Pack the solution
+      - name: Pack the solution to Managed
         uses: microsoft/powerplatform-actions/pack-solution@v0
         with:
           # solution-folder: ${{ github.event.repository.name}}/${{ github.event.inputs.solution_name }}
           solution-folder: out/solutions/${{ github.event.inputs.solution_name }}
           # solution-file: ${{ github.event.repository.name}}/${{ github.event.inputs.solution_name }}.zip
-          solution-file: out/exported/${{ github.event.inputs.solution_name }}_unmanaged.zip
-          solution-type: Unmanaged
+          solution-file: out/exported/${{ github.event.inputs.solution_name }}_managed.zip
+          solution-type: Managed
     
-      - name: Import solution as unmanaged to Test env
+      - name: Import solution as managed to Test env using settings file
         uses: microsoft/powerplatform-actions/import-solution@v0
         with:
           environment-url: ${{github.event.inputs.environment_url}}
@@ -59,6 +59,8 @@ jobs:
           client-secret: ${{ secrets.PowerPlatformSPN }}
           tenant-id: ${{env.TENANT_ID}}
           # solution-file: ${{ github.event.repository.name}}/${{ github.event.inputs.solution_name }}.zip
-          solution-file: out/exported/${{ github.event.inputs.solution_name }}_unmanaged.zip
+          solution-file: out/exported/${{ github.event.inputs.solution_name }}_managed.zip
+          use-deployment-settings-file: true
+          deployment-settings-file: ${{ input.solution_source_folder}}/${{ inputs.solution_settings_folder}}${{ inputs.solution_name }}_uat_settings.json
           force-overwrite: true
           publish-changes: true
