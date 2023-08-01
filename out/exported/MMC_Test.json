@@ -1,0 +1,23 @@
+{
+  "EnvironmentVariables": [
+    {
+      "SchemaName": "mmc_MyVariable1",
+      "Value": "CurValue1"
+    },
+    {
+      "SchemaName": "mmc_MyVariable2",
+      "Value": "CurValue2"
+    },
+    {
+      "SchemaName": "mmc_MyVariable5",
+      "Value": "CurValue5"
+    }
+  ],
+  "ConnectionReferences": [
+    {
+      "LogicalName": "mmc_new_MailConnection0726",
+      "ConnectionId": "7cd060fd772f478184f7a1bebf13e9df",
+      "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_sendmail"
+    }
+  ]
+}
