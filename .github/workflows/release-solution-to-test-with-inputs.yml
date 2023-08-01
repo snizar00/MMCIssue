@@ -6,7 +6,7 @@ on:
       solution_name:
         description: "name of the Solution"
         required: true
-        default: <SOLUTION_NAME, i.e, PowerAppsTools_lic>
+        default: MMC_Test
       # environment_id:
       #   description: "GUID of your Dataverse environment"
       #   required: true
@@ -14,7 +14,7 @@ on:
       environment_url:
         description: "http endpoint of your Dataverse environment"
         required: true
-        default: "<ENVIRONMENT_URL>"  # Test Environment URL
+        default: "https://org8f174b27.crm.dynamics.com/"  # Test Environment URL
       #solution_source_folder:
        # description: "Location of the solution files"
         #requried: true
@@ -25,8 +25,8 @@ on:
         #default: out/stage
 env:
 #edit your values here
-  CLIENT_ID: '<CLIENT_ID_FROM_THE_LAB_INSTRUCTIONS>'
-  TENANT_ID: '<TENANT_ID_FROM_THE_LAB_INSTRUCTIONS>'
+  CLIENT_ID: '853d3271-4006-4e67-a512-0ab4159969f7'
+  TENANT_ID: '2b0463ed-efd7-419d-927d-a9dca49d899c'
 
 permissions:
   contents: write
@@ -48,8 +48,8 @@ jobs:
           # solution-folder: ${{ github.event.repository.name}}/${{ github.event.inputs.solution_name }}
           solution-folder: out/solutions/${{ github.event.inputs.solution_name }}
           # solution-file: ${{ github.event.repository.name}}/${{ github.event.inputs.solution_name }}.zip
-          solution-file: out/exported/${{ github.event.inputs.solution_name }}_managed.zip
-          solution-type: Managed
+          solution-file: out/exported/${{ github.event.inputs.solution_name }}.zip # _managed.zip
+          solution-type: Unanaged
     
       - name: Import solution as managed to Test env using settings file
         uses: microsoft/powerplatform-actions/import-solution@v0
@@ -59,8 +59,9 @@ jobs:
           client-secret: ${{ secrets.PowerPlatformSPN }}
           tenant-id: ${{env.TENANT_ID}}
           # solution-file: ${{ github.event.repository.name}}/${{ github.event.inputs.solution_name }}.zip
-          solution-file: out/exported/${{ github.event.inputs.solution_name }}_managed.zip
+          solution-file: out/exported/${{ github.event.inputs.solution_name }}.zip # _managed.zip
           use-deployment-settings-file: true
-          deployment-settings-file: ${{ input.solution_source_folder}}/${{ inputs.solution_settings_folder}}${{ inputs.solution_name }}_uat_settings.json
+          deployment-settings-file: out/exported/${{ github.event.inputs.solution_name }}.json
+          # deployment-settings-file: ${{ input.solution_source_folder}}/${{ inputs.solution_settings_folder}}${{ inputs.solution_name }}_uat_settings.json
           force-overwrite: true
           publish-changes: true
