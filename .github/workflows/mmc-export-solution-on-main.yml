@@ -1,6 +1,6 @@
 name: mmc-export-solution-on-main
 # Export solution from DEV environment
-#  unpack it and prepare, commit and push a git branch with the changes
+#  next step will import this solution to TEST env using a settings file.
 
 on:
   workflow_dispatch:
@@ -49,8 +49,6 @@ jobs:
         app-id: ${{ env.CLIENT_ID}}
         client-secret: ${{ secrets.PowerPlatformSPN }}
         tenant-id: ${{ env.TENANT_ID}}
-        
-    
 
     - name: export-solution action
       uses: microsoft/powerplatform-actions/export-solution@v0
